@@ -9,9 +9,9 @@ import tkinter as tk
 from tkinter import font as tkfont
 from tkinter import *
 from PIL import Image, ImageTk
-import thread
+import threading
 import time
-import tkMessageBox
+import tkinter.messagebox
 from fosbot import bot
 from control import twitter_timer
 
@@ -74,7 +74,7 @@ class StartPage(tk.Frame):
     login_button.pack()
     help_button.pack()
   def login_test(self, parent, controller):
-    print "Login Test"
+    print("Login Test")
     login = False
     consumer_key = self.consumer_key_entry.get().strip()
     consumer_secret = self.consumer_secret_entry.get().strip()
@@ -82,7 +82,7 @@ class StartPage(tk.Frame):
     access_secret = self.access_secret_entry.get().strip()
     try:
       controller.mybot = bot(consumer_key, consumer_secret, access_key,access_secret)
-      print "failing before login test"
+      print("failing before login test")
       login = controller.mybot.get_user_name()
     except:
       login=False
@@ -91,8 +91,8 @@ class StartPage(tk.Frame):
       controller.show_frame("mainPage")
       controller.frames['mainPage'].space_label2['text'] = "Welcome, " + login + "!"
     else:
-      print "Login Fail"
-      tkMessageBox.showerror("Error", " Could Not Log In\nCheck The Help Page")
+      print ("Login Fail")
+      tkinter.messagebox.showerror("Error", " Could Not Log In\nCheck The Help Page")
   def help(self, parent, controller):
     controller.show_frame("helpPage")
 class mainPage(tk.Frame):
@@ -138,7 +138,7 @@ class mainPage(tk.Frame):
     self.back_button.pack(side='bottom')
   def gen_prey(self, parent, controller):
     name_list = self.victim_entry.get().encode('ascii','ignore').strip(' ').split(',')
-    print name_list
+    print(name_list)
     try:
       controller.mybot.gen_follow_lists()
       controller.follow_list = controller.mybot.generate_long_leech_list(name_list)
@@ -147,7 +147,7 @@ class mainPage(tk.Frame):
       self.contact_button['state'] = 'normal'
       self.generate_prey_button['state'] = 'normal'
 
-      print controller.follow_list
+      print(controller.follow_list)
       self.show_prey_button['state'] = 'normal'
       self.start_button['state'] = 'normal'
       self.space_label2['text'] = "List Generated, Ready to Start"
@@ -164,9 +164,9 @@ class mainPage(tk.Frame):
 
   def start(self, parent, controller):
     self.controller.show_frame('runPage')
-    print "sleeping for 5 seconds before starting..."
+    print ("sleeping for 5 seconds before starting...")
     time.sleep(5)
-    print "Alright its time to gooooo"
+    print ("Alright its time to gooooo")
     try:
       controller.mybot.start()
     except:
@@ -252,5 +252,7 @@ class donatePage(tk.Frame):
     label.pack()
     button = tk.Button(self, text="Back", command=lambda: controller.show_frame("mainPage"))
     button.pack(side = 'bottom')
+print("Here")
 app = Leechy_Bird()
+print("There")
 app.mainloop()

@@ -27,21 +27,21 @@ class bot(object):
     api = self.authenticate()
     me = api.me().screen_name
     follow_list_pages = []
-    print "Generating list of followed users..."
+    print("Generating list of followed users...")
     try:
       for follower in tweepy.Cursor(api.friends).items():
         self.my_following.append(follower.screen_name.encode('ascii','ignore'))
     except:
-      print "failed to generate following list"
+      print("failed to generate following list")
       return
-    print "Success..."
-    print "Generating list of followers..."
+    print("Success...")
+    print("Generating list of followers...")
     try:
       for follower in tweepy.Cursor(api.followers).items():
         self.my_followers.append(follower.screen_name.encode('ascii','ignore'))
     except:
-      print "failed to generate follower list"
-    print "Success..."
+      print ("failed to generate follower list")
+    print ("Success...")
     return
 
   def authenticate(self):
@@ -168,7 +168,7 @@ class bot(object):
     except Exception as ex:
       template = "An exception of type {0} occured. Arguments:\n{1!r}"
       message = template.format(type(ex).__name__, ex.args)
-      print message
+      print(message)
       return False
 
   def generate_leech_list(self,twitter_name):
@@ -203,15 +203,15 @@ class bot(object):
     for x in range(amount_of_timers):
       timers.append(twitter_timer("set"))
     counter = 0
-    print "Made timer list just fine..."
+    print("Made timer list just fine...")
     tester = 0
-    print "Started outside loop"
+    print("Started outside loop")
     while(counter < len(prey)):
-      print "Started inside loop"
+      print("Started inside loop")
       for x in range(len(timers)):
         if(timers[x].user_screen_name=="set"):
           timers[x] = twitter_timer(prey[counter])
-          print "Trying to Follow Someone"
+          print ("Trying to Follow Someone")
           self.follow_user(prey[counter])
           counter = counter + 1
           time.sleep(3600)
